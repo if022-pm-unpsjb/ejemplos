@@ -1,0 +1,6 @@
+calc*
+*.o
+*.h
+!calc_client.c
+!calc_server.c
+!calc.x

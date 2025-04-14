@@ -1,0 +1,23 @@
+Ejemplo sencillo de RPC
+
+Compilar: make
+
+Problemas:
+- fatal error: rpc/rpc.h: No such file or directory
+Ejecutar: 
+sudo apt-get update
+sudo apt-get install libnsl-dev portmap
+
+Comandos interesantes de rpcgen:
+
+rpcgen -Sm 
+
+    Genera un archivo Makefile para el proyecto (puede necesitar ajustes)
+
+rpcgen -Sc
+
+    Genera código de ejemplo para crear el cliente y conectarse con el servidor.
+    
+rpggen -Ss
+
+    Genera código de ejemplo para crear el servidor.
