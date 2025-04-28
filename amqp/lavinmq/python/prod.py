@@ -26,13 +26,13 @@ def send_to_queue(channel, routing_key, body):
 
 # Publish messages
 send_to_queue(
-    channel=channel, routing_key="hello_world", body="Hello World"
+    channel=channel, routing_key="hello_world", body="Hello World 1"
 )
 send_to_queue(
-    channel=channel, routing_key="hello_world", body="Hello World"
+    channel=channel, routing_key="hello_world", body="Hello World 2"
 )
 send_to_queue(
-    channel=channel, routing_key="hello_world", body="Hello World"
+    channel=channel, routing_key="hello_world", body="Hello World 3"
 )
 
 try:
