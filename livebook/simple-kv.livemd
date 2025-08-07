@@ -1,6 +1,12 @@
+<!-- livebook:{"file_entries":[{"name":"key_value_store.png","type":"attachment"}]} -->
+
 # Elixir: Simple KV
 
 ## Almacen Clave-Valor
+
+![](files/key_value_store.png)
+
+<!-- livebook:{"break_markdown":true} -->
 
 Vamos a hacer un pequeño almacen clave-valor. Usaremos un mapa y funciones que permitan agregar, recuperar o eliminar valores de la misma.
 

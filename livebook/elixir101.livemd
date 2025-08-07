@@ -47,23 +47,23 @@ IO.puts(nombre)
 
 Fantabuloso. `IO.puts` es una función similar a `printf()` en C o `System.out.println()` en Java.
 
-Como Python, Elixir soporta interpolación de cadenas:
+Como Python, Elixir soporta interpolación de [cadenas](https://hexdocs.pm/elixir/basic-types.html#strings):
 
 ```elixir
 IO.puts("Hola #{nombre}")
 ```
 
-¿Qué es el `:ok` que aparece luego la salida de `IO.puts`? Es un átomo, un tipo de dato en Elixir cuyo valor es su propio nombre. En este caso, nos indica el valor de retorno de la función.
+¿Qué es el `:ok` que aparece luego la salida de `IO.puts`? Es un [átomo](https://hexdocs.pm/elixir/basic-types.html#atoms), un tipo de dato en Elixir cuyo valor es su propio nombre. En este caso, nos indica el valor de retorno de la función.
 
 <!-- livebook:{"break_markdown":true} -->
 
-Vamos a crear una lista de nombres:
+Vamos a crear una [lista](https://hexdocs.pm/elixir/lists-and-tuples.html#linked-lists) de nombres:
 
 ```elixir
 estudiantes = ["Heisenberg", "Asimov", "Toriyama"]
 ```
 
-Supongamos que queremos agregar datos adicionales a cada estudiantes, por ejemplo su edad. Una opción es que cada elemento sea una lista en lugar de un cadena... pero es mejor utilizar un *mapa*.
+Supongamos que queremos agregar datos adicionales a cada estudiantes, por ejemplo su edad. Una opción es que cada elemento sea una lista en lugar de un cadena... pero es mejor utilizar un [mapa](https://hexdocs.pm/elixir/keywords-and-maps.html#maps-as-key-value-pairs).
 
 ```elixir
 estudiante = %{"nombre" => "Toriyama", "edad" => 42}
@@ -105,7 +105,7 @@ end
 saludar.(estudiante.nombre)
 ```
 
-Vamos a ver ahora una funcionalidad importante del lenguaje, el _pattern matching_:
+Vamos a ver ahora una funcionalidad importante del lenguaje, el [pattern matching](https://hexdocs.pm/elixir/pattern-matching.html):
 
 ```elixir
 [primer_estudiante | el_resto] = estudiantes
@@ -123,7 +123,7 @@ IO.puts(nombre)
 No parece muy impresionante. Pero miren esto, obtener el nombre de primer estudiante en la lista (el `_` indica que no me interesa el resto de la lista)
 
 ```elixir
-[%{nombre: nombre} = primero | _ ] = estudiantes
+[%{nombre: nombre} | _ ] = estudiantes
 IO.puts(nombre)
 ```
 
@@ -146,7 +146,7 @@ Ahora, algo de magia :)
 Enum.each(estudiantes, saludar)
 ```
 
-¿Y que pasa si quiero definir una función? Tenemos que declararla dentro de un _módulo_:
+¿Y que pasa si quiero definir una función? Tenemos que declararla dentro de un [módulo](https://hexdocs.pm/elixir/modules-and-functions.html):
 
 ```elixir
 defmodule BuenosModales do
