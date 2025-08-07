@@ -1,0 +1,130 @@
+# Elixir 101
+
+## Una introducción rápida a Elixir
+
+Lo primero que vamos a hacer es crear una _variable_, asignandole un valor e imprimir por la terminal dicho valor.
+
+```elixir
+nombre = "Francisco"
+IO.puts(nombre)
+```
+
+Fantabuloso. `IO.puts` es una función similar a `printf()` en C o `System.out.println()` en Java.
+
+Como Python, Elixir soporta interpolación de cadenas:
+
+```elixir
+IO.puts("Hola #{nombre}")
+```
+
+¿Qué es el `:ok` que aparece luego la salida de `IO.puts`? Es un átomo, un tipo de dato en Elixir cuyo valor es su propio nombre. En este caso, nos indica el valor de retorno de la función.
+
+<!-- livebook:{"break_markdown":true} -->
+
+Vamos a crear una lista de nombres:
+
+```elixir
+estudiantes = ["Heisenberg", "Asimov", "Toriyama"]
+```
+
+Supongamos que queremos agregar datos adicionales a cada estudiantes, por ejemplo su edad. Una opción es que cada elemento sea una lista en lugar de un cadena... pero es mejor utilizar un *mapa*.
+
+```elixir
+estudiante = %{"nombre" => "Toriyama", "edad" => 42}
+IO.puts("Hola, #{estudiante["nombre"]}")
+```
+
+Entonces la lista de estudiantes, es una lista de _mapas_:
+
+```elixir
+estudiantes = [
+  %{:nombre => "Heisenberg", :edad => 42},
+  %{:nombre => "Asimov", :edad => 33},
+  %{:nombre => "Toriyama", :edad => 38}
+]
+IO.puts("Hola, #{Enum.at(estudiantes, 0)[:nombre]}")
+```
+
+En lugar de cadenas utilizamos _átomos_ para las claves de cada mapa. Esto es una buena práctica, ya que los átomos no se duplican (cada "nombre" utilizado como clave es una cadena diferente).
+
+Es tan común este estilo que Elixir ofrece un atajo sintáctico:
+
+```elixir
+estudiantes = [
+  %{nombre: "Heisenberg", edad: 42},
+  %{nombre: "Asimov", edad: 33},
+  %{nombre: "Toriyama", edad: 38}
+]
+estudiante = Enum.at(estudiantes, 0)
+IO.puts("hola, #{estudiante.nombre}")
+```
+
+Vamos a hacer una función que imprima el saludo. Notar que la función es anónima, esta asociada a una variable y por eso es necesario el punto luego de su nombre al invocarla:
+
+```elixir
+saludar = fn (nombre) ->
+  IO.puts("hola, #{nombre}")
+end
+
+saludar.(estudiante.nombre)
+```
+
+Vamos a ver ahora una funcionalidad importante del lenguaje, el _pattern matching_:
+
+```elixir
+[primer_estudiante | el_resto] = estudiantes
+saludar.(primer_estudiante.nombre)
+el_resto
+```
+
+¿Y si solo quisiera el nombre del estudiante?
+
+```elixir
+%{nombre: nombre} = estudiante
+IO.puts(nombre)
+```
+
+No parece muy impresionante. Pero miren esto, obtener el nombre de primer estudiante en la lista (el `_` indica que no me interesa el resto de la lista)
+
+```elixir
+[%{nombre: nombre} = primero | _ ] = estudiantes
+IO.puts(nombre)
+```
+
+Y miren como podemos mejorar nuestra función de saludo:
+
+```elixir
+saludar = fn
+  %{nombre: nombre} -> IO.puts("hola, #{nombre}")
+  _ -> IO.puts("hola, desconocido")
+end
+
+saludar.(estudiante)
+
+saludar.([])
+```
+
+Ahora, algo de magia :)
+
+```elixir
+Enum.each(estudiantes, saludar)
+```
+
+¿Y que pasa si quiero definir una función? Tenemos que declararla dentro de un _módulo_:
+
+```elixir
+defmodule BuenosModales do
+
+  def saludar (nombre) do
+    case nombre do
+      %{nombre: nombre} -> IO.puts("hola, #{nombre}")
+      _ -> IO.puts "Hola, desconocido" 
+    end
+  end
+  
+end
+
+BuenosModales.saludar(estudiante)
+```
+
+¡Excelente!

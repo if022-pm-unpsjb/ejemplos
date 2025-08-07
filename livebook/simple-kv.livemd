@@ -1,0 +1,141 @@
+# Elixir: Simple KV
+
+## Almacen Clave-Valor
+
+Vamos a hacer un pequeño almacen clave-valor. Usaremos un mapa y funciones que permitan agregar, recuperar o eliminar valores de la misma.
+
+Empecemos definiendo un módulo y las funciones:
+
+```elixir
+defmodule KvApi do
+
+  def get(kv_store, key) do
+    kv_store[key]
+  end
+
+  def put(kv_store, key, value) do
+    Map.put(kv_store, key, value)
+  end
+
+  def del(kv_store, key) do
+    Map.delete(kv_store, key)
+  end
+  
+end
+```
+
+Vamos a probar si funciona:
+
+```elixir
+kv_store = %{}
+
+kv_store = KvApi.put(kv_store, :nombre, "Joey")
+kv_store = KvApi.put(kv_store, :apellido, "Ramone")
+kv_store = KvApi.put(kv_store, :edad, 27)
+
+KvApi.get(kv_store, :edad)
+```
+
+Antes de continuar, vamos a ver como podemos crear un proceso que espere un mensaje con un nombre e  imprima un saludo.
+
+```elixir
+defmodule Saludo do
+  def saludar do
+    receive do
+      name -> IO.puts("Hola #{name}")
+    end
+    saludar()
+  end
+end
+
+# creamos un proceso que ejecuta saludar
+pid = spawn(Saludo, :saludar, [])
+```
+
+Para verificar su funcionamiento, enviaremos un mensaje al proceso mediante la función `send` (notar que la función retorna como valor el mensaje enviado).
+
+```elixir
+send(pid, "Goku")
+```
+
+Probemos enviar nuevamente un mensaje, el proceso debe seguir activo:
+
+```elixir
+send(pid, "Kirk")
+```
+
+Ahora sí, definimos un modulo que permita crear un proceso que gestione un almacen clave-valor mediante un mapa:
+
+* La función `start()` crea el proceso, que ejecutará la función `kv()`
+* Las funciones `get()`, `put()`, `del()` y `dump()` encapsulan el envío de mensajes al proceso.
+* La función `kv()` espera por un mensaje, y mediante _pattern matching_ efectua la operación correspondiente.
+
+```elixir
+defmodule Kv do
+
+  def start() do
+    spawn(Kv, :kv, [])
+  end
+
+  def get(pid, key) do
+    send(pid, {:get, key, self()})
+    receive do
+       value -> value
+    end
+  end
+  
+  def dump(pid) do
+    send(pid, {:dump, self()})
+    receive do
+       value -> value
+    end
+  end
+
+  def put(pid, key, value) do
+    send(pid, {:put, key, value})
+  end
+
+  def del(pid, key) do
+    send(pid, {:del, key})
+  end
+
+  def kv(store \\ %{}) do
+    receive do
+      {:get, key, from} -> 
+        send(from, store[key])
+        kv(store)
+      {:put, key, value} -> 
+        new_store = Map.put(store, key, value)
+        kv(new_store)
+      {:del, key} -> 
+        new_store = Map.delete(store, key)
+        kv(new_store)
+      {:dump, from} ->
+        send(from, store)
+        kv(store)
+    end
+  end
+  
+end
+```
+
+Primero creamos un nuevo proceso que ejecute la función `Kv.kv`:
+
+```elixir
+pid = Kv.start
+```
+
+Para verificar que funciona, agregamos una clave `:nombre` con un valor y lo recuperamos:
+
+```elixir
+Kv.put(pid, :nombre, "Brian")
+Kv.put(pid, :apellido, "Kernighan")
+IO.puts(Kv.get(pid, :nombre))
+IO.puts(Kv.get(pid, :apellido))
+```
+
+Mediante la función `Kv.dump` podemos obtener el mapa que almacena el proceso:
+
+```elixir
+Kv.dump(pid)
+```
