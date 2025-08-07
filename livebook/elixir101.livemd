@@ -1,6 +1,42 @@
+<!-- livebook:{"file_entries":[{"name":"elixir-logo.png","type":"attachment"},{"name":"homer-think.jpg","type":"attachment"},{"name":"homer-woo-hoo.png","type":"attachment"},{"name":"homero-preocupado.png","type":"attachment"},{"name":"oh-no.jpeg","type":"attachment"}]} -->
+
 # Elixir 101
 
 ## Una introducción rápida a Elixir
+
+![](files/elixir-logo.png)
+
+* Diseñado para desarrollar aplicaciones escalables y tolerantes a fallos.
+* Elixir genera bytecode para la máquina virtual de Erlang (BEAM).
+* ¿Quien usa Elixir? Discord, Pinterest, Pepsi, Toyota...
+
+<!-- livebook:{"break_markdown":true} -->
+
+Es un lenguaje de programación funcional basado en Erlang/OTP
+![](files/oh-no.jpeg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+No existen clases, objetos, instancias... sólo funciones (organizadas en módulos)
+![](files/homer-woo-hoo.png)
+
+<!-- livebook:{"break_markdown":true} -->
+
+* Los datos son inmutables (¡hola recursión!)
+* Una variable se asocia siempre a un nuevo valor
+* No existe el paso por referencia
+  ![](files/homero-preocupado.png)
+
+<!-- livebook:{"break_markdown":true} -->
+
+Una función no depende de estado externo:
+
+* procesa sus parámetros y genera una respuesta.
+* Predecible y fácilmente testeable.
+* Facilita la concurrencia: no hay que “proteger” estados.
+  ![](files/homer-think.jpg)
+
+<!-- livebook:{"break_markdown":true} -->
 
 Lo primero que vamos a hacer es crear una _variable_, asignandole un valor e imprimir por la terminal dicho valor.
 
@@ -127,4 +163,4 @@ end
 BuenosModales.saludar(estudiante)
 ```
 
-¡Excelente!
+Eso es todo por ahora...
