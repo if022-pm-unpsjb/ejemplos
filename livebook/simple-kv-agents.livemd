@@ -1,0 +1,70 @@
+# Elixir: Simple KV usando Agent
+
+## Agent
+
+En Elixir un [Agent](https://hexdocs.pm/elixir/1.18.4/Agent.html) es un tipo de proceso para gestionar y proteger un estado mutable. En lugar de implementar manualmente la gestión de estado mediante recursión, se delega esto al agente.
+
+### Beneficios
+
+* Facilidad de uso: funciones para agregar, actualizar, eliminar, etc.
+* Aislamiento: cada agente ejecuta como un proceso separado.
+* Concurrencia: permite acceso concurrente sin condiciones de carrera.
+
+### Limitaciones
+
+* No estan diseñados para almacenar estados complejos.
+* Las operaciones son bloqueantes.
+
+```elixir
+defmodule KV.Bucket do
+  use Agent
+
+  @doc """
+  Starts a new bucket.
+  """
+  def start_link() do
+    Agent.start_link(fn -> %{} end)
+  end
+
+  @doc """
+  Get a value from the 'bucket' by 'key'
+  """
+  def get(bucket, key) do
+    Agent.get(bucket, &Map.get(&1, key))
+  end
+
+  @doc """
+  Puts the value for the given key in the bucket
+  """
+  def put(bucket, key, value) do
+    Agent.update(bucket, &Map.put(&1, key, value))
+  end
+
+  @doc """
+  Deletes key from bucket.
+
+  Return the current value of key, if key exists.
+  """
+  def del(bucket, key) do
+    Agent.get_and_update(bucket, &Map.pop(&1, key))
+  end
+
+  def dump(bucket) do
+    Agent.get(bucket, & &1)
+  end
+  
+end
+
+```
+
+```elixir
+{:ok, pid} = KV.Bucket.start_link
+```
+
+```elixir
+KV.Bucket.put(pid, :nombre, "Asimov")
+
+IO.puts(KV.Bucket.get(pid, :nombre))
+
+KV.Bucket.dump(pid)
+```
