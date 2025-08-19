@@ -1,8 +1,10 @@
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 public class CalculatorImpl extends UnicastRemoteObject implements Calculator {
+
+    static final long serialVersionUID = 1L;
+
     protected CalculatorImpl() throws RemoteException {
         super();
     }
