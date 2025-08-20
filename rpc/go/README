@@ -1,0 +1,22 @@
+// =============================================================================
+// INSTRUCCIONES DE USO
+// =============================================================================
+
+Para ejecutar este ejemplo:
+
+1. Guarda el código del servidor en un archivo llamado "server.go"
+2. Guarda el código del cliente (comentado arriba) en un archivo llamado "client.go"
+3. Ejecuta el servidor:
+   go run server.go
+
+4. En otra terminal, ejecuta el cliente:
+   go run client.go
+
+El servidor quedará ejecutándose y podrás conectar múltiples clientes.
+
+Características del ejemplo:
+- Servidor RPC que expone métodos de calculadora
+- Cliente que se conecta y realiza llamadas remotas
+- Manejo de errores (como división por cero)
+- Comunicación a través de HTTP/TCP
+- Estructuras compartidas para argumentos y respuestas
