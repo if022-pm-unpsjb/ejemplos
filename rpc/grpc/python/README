@@ -1,0 +1,107 @@
+# Ejemplo gRPC - Calculadora Simple
+
+Este ejemplo demuestra cómo crear un servicio gRPC básico en Python que realiza la suma de dos enteros.
+
+## Estructura del proyecto
+
+```
+grpc_calculator/
+├── calculator.proto          # Definición del servicio gRPC
+├── server.py                # Servidor gRPC
+├── client.py                # Cliente gRPC
+├── requirements.txt         # Dependencias de Python
+├── calculator_pb2.py        # (generado automáticamente)
+└── calculator_pb2_grpc.py   # (generado automáticamente)
+```
+
+## Instalación
+
+1. **Crear un entorno virtual (recomendado):**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # En Windows: venv\Scripts\activate
+   ```
+
+2. **Instalar dependencias:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Generar código Python desde el archivo .proto:**
+   ```bash
+   python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. calculator.proto
+   ```
+
+   Este comando generará dos archivos:
+   - `calculator_pb2.py`: Clases para los mensajes
+   - `calculator_pb2_grpc.py`: Clases para el servicio
+
+## Ejecución
+
+1. **Iniciar el servidor:**
+   ```bash
+   python server.py
+   ```
+   Deberías ver: `Servidor iniciado en [::]:50051`
+
+2. **En otra terminal, ejecutar el cliente:**
+   ```bash
+   python client.py
+   ```
+
+## Salida esperada
+
+**Servidor:**
+```
+Servidor iniciado en [::]:50051
+Recibida petición: 5 + 3 = 8
+Recibida petición: 10 + 20 = 30
+Recibida petición: -5 + 15 = 10
+Recibida petición: 0 + 0 = 0
+Recibida petición: 100 + 200 = 300
+```
+
+**Cliente:**
+```
+Cliente gRPC - Calculadora
+==============================
+5 + 3 = 8
+10 + 20 = 30
+-5 + 15 = 10
+0 + 0 = 0
+100 + 200 = 300
+
+¡Pruebas completadas!
+```
+
+## Componentes explicados
+
+### 1. calculator.proto
+- Define el servicio `Calculator` con el método `Add`
+- Especifica los mensajes de entrada (`AddRequest`) y salida (`AddResponse`)
+- Utiliza Protocol Buffers para la serialización
+
+### 2. server.py
+- Implementa la clase `CalculatorServicer` que extiende el servicio generado
+- Define la lógica del método `Add`
+- Configura y ejecuta el servidor gRPC en el puerto 50051
+
+### 3. client.py
+- Crea una conexión con el servidor
+- Envía múltiples peticiones de suma
+- Muestra los resultados recibidos
+
+## Personalización
+
+Para añadir más operaciones matemáticas, modifica:
+
+1. **calculator.proto**: Agregar nuevos métodos al servicio
+2. **server.py**: Implementar los nuevos métodos en `CalculatorServicer`
+3. **client.py**: Llamar a los nuevos métodos
+4. Regenerar los archivos Python con `protoc`
+
+## Notas importantes
+
+- El servidor utiliza un pool de 10 hilos para manejar peticiones concurrentes
+- La conexión es insegura (sin TLS) para simplicidad
+- Para producción, considera usar conexiones seguras y manejo de errores más robusto

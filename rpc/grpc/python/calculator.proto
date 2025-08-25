@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package calculator;
+
+// Servicio de calculadora
+service Calculator {
+  // Función para sumar dos enteros
+  rpc Add(AddRequest) returns (AddResponse);
+}
+
+// Mensaje de solicitud para la suma
+message AddRequest {
+  int32 a = 1;
+  int32 b = 2;
+}
+
+// Mensaje de respuesta para la suma
+message AddResponse {
+  int32 result = 1;
+}
