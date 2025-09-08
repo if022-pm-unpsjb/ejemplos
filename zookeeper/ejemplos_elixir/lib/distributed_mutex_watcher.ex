@@ -27,7 +27,7 @@ defmodule DistMutex do
   ## Funciones de Exclusión Mutua
 
   def acquire_lock(pid \\ __MODULE__) do
-    GenServer.call(pid, :acquire_lock)
+    GenServer.call(pid, :acquire_lock, :infinity)
   end
 
   def release_lock(pid \\ __MODULE__) do
