@@ -5,8 +5,13 @@ defmodule Consumer do
   use AMQP
 
   def start do
+    url = case System.get_env("AMQP_URL") do
+      nil -> ""
+      url -> url
+    end
+
     # Conectar al servidor RabbitMQ
-    {:ok, connection} = Connection.open("amqp_url", ssl_options: [verify: :verify_none])
+    {:ok, connection} = Connection.open(url, ssl_options: [verify: :verify_none])
     {:ok, channel} = Channel.open(connection)
 
     # Declarar una cola
