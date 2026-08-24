@@ -10,7 +10,7 @@ Ejecutar:
 sudo apt-get update
 sudo apt-get install libnsl-dev portmap
 
-En Fedora: sudo dnf install libtirpc-devel
+En Fedora: sudo dnf install libtirpc-devel libnsl2-devel
 
 Comandos interesantes de rpcgen:
 
