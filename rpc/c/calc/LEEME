@@ -3,10 +3,14 @@ Ejemplo sencillo de RPC
 Compilar: make
 
 Problemas:
+- no encuentra rpcgen: instalarlo (sudo apt-get install rpcgen o sudo dnf install rpcgen)
+
 - fatal error: rpc/rpc.h: No such file or directory
 Ejecutar: 
 sudo apt-get update
 sudo apt-get install libnsl-dev portmap
+
+En Fedora: sudo dnf install libtirpc-devel
 
 Comandos interesantes de rpcgen:
 
