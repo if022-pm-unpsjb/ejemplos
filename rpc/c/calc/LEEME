@@ -12,6 +12,10 @@ sudo apt-get install libnsl-dev portmap
 
 En Fedora: sudo dnf install libtirpc-devel libnsl2-devel
 
+- No se puede iniciar el servidor:
+Verificar portmapper: rpcinfo -p
+Iniciar en caso de que no este funcionando: sudo systemctl enable --now rpcbind
+
 Comandos interesantes de rpcgen:
 
 rpcgen -Sm 
