@@ -4,33 +4,28 @@ defmodule Producer do
   """
   use AMQP
 
+  # nombre de la cola de mensajes
+  @queue_name "test_queue"
+  # nombre del exchange
+  @exchange_name "test_exchange"
+
   def send_message(message) do
-    url = case System.get_env("AMQP_URL") do
-      nil -> ""
-      url -> url
-    end
+    # Obtener el canal AMQP (definido en la configuración)
+    {:ok, channel} = AMQP.Application.get_channel(:channel)
 
-    # Conectar al servidor RabbitMQ
-    {:ok, connection} = Connection.open(url, ssl_options: [verify: :verify_none])
-    {:ok, channel} = Channel.open(connection)
+    # Declara la cola de mensajes
+    Queue.declare(channel, @queue_name, durable: true)
 
-    # Declarar una cola y un exchange
-    queue_name = "test_queue"
-    exchange_name = "test_exchange"
+    # Declara el exchange
+    Exchange.declare(channel, @exchange_name, :direct, durable: true)
 
-    Queue.declare(channel, queue_name, durable: true)
-    Exchange.declare(channel, exchange_name, :direct, durable: true)
-
-    # Enlazar la cola con el exchange
-    Queue.bind(channel, queue_name, exchange_name)
+    # Enlaza la cola de mensajes con el exchange
+    Queue.bind(channel, @queue_name, @exchange_name)
 
     # Publicar el mensaje
-    Basic.publish(channel, exchange_name, "", message)
+    Basic.publish(channel, @exchange_name, "", message)
 
     IO.puts("Mensaje enviado: #{message}")
-
-    # Cerrar conexión
-    Channel.close(channel)
-    Connection.close(connection)
   end
+
 end
