@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+// Definimos el servicio y sus métodos
+service Calculadora {
+  rpc Multiplicar (Argumentos) returns (Respuesta);
+}
+
+// Estructura para enviar los datos
+message Argumentos {
+  int32 a = 1;
+  int32 b = 2;
+}
+
+// Estructura para recibir el resultado
+message Respuesta {
+  int32 resultado = 1;
+}
