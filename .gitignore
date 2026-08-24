@@ -26,5 +26,6 @@ monolith-*.tar
 /tmp/
 
 **/venv
+**/.venv
 **/__pycache__
 **/.ccls-cache
