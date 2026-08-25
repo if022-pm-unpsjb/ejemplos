@@ -1,7 +1,12 @@
-import rabbitpy, os
+import rabbitpy, os, logging
 
 url = os.environ.get('CLOUDAMQP_URL', 'amqp://guest:guest@localhost:5672/%2f')
-print(url)
-msg = rabbitpy.simple.get(url, "hello")
-print(msg.body)
 
+logging.basicConfig(level=logging.INFO)
+
+with rabbitpy.Connection(url) as conn:
+    with conn.channel() as channel:
+        for msg in rabbitpy.Queue(channel, 'test'):
+            print(msg.body.decode())
+            #msg.pprint(True)
+            msg.ack()
