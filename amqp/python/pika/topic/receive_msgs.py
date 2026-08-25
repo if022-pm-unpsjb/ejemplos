@@ -9,9 +9,10 @@ def receive_message(url, exchange, binding_keys):
     connection = pika.BlockingConnection(pika.URLParameters(url))
     channel = connection.channel()
 
-    channel.exchange_declare(exchange=exchange, exchange_type='topic', durable=True)
+    channel.exchange_declare(exchange=exchange, exchange_type='topic')
 
     result = channel.queue_declare('', exclusive=True)
+    #result = channel.queue_declare('channel')
     queue_name = result.method.queue
 
     for binding_key in binding_keys:

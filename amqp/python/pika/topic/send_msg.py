@@ -6,7 +6,7 @@ def send_message(url, exchange, routing_key, message):
     connection = pika.BlockingConnection(pika.URLParameters(url))
     channel = connection.channel()
 
-    channel.exchange_declare(exchange=exchange, exchange_type='topic', durable=True)
+    channel.exchange_declare(exchange=exchange, exchange_type='topic')
 
     channel.basic_publish(exchange=exchange, routing_key=routing_key, body=message)
     print(f" [x] Sent {routing_key}:{message}")
