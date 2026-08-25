@@ -20,7 +20,11 @@ erl_crash.dump
 *.ez
 
 # Ignore package tarball (built via "mix hex.build").
-elixir_rabbitmq-*.tar
+monolith-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+**/mix_home
+
+**/hex_home
