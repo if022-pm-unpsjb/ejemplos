@@ -1,0 +1,86 @@
+version = 1
+revision = 3
+requires-python = ">=3.10"
+resolution-markers = [
+    "python_full_version >= '3.11'",
+    "python_full_version < '3.11'",
+]
+
+[[package]]
+name = "pamqp"
+version = "2.3.0"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version < '3.11'",
+]
+sdist = { url = "https://files.pythonhosted.org/packages/82/c3/427996b3e1b1b7f4e1500d1d21400cb393ceabcf4874c5547aa553c85e26/pamqp-2.3.0.tar.gz", hash = "sha256:5cd0f5a85e89f20d5f8e19285a1507788031cfca4a9ea6f067e3cf18f5e294e8", size = 25322, upload-time = "2019-04-18T20:04:55.006Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/eb/56/afa06143361e640c9159d828dadc95fc9195c52c95b4a97d136617b0166d/pamqp-2.3.0-py2.py3-none-any.whl", hash = "sha256:2f81b5c186f668a67f165193925b6bfd83db4363a6222f599517f29ecee60b02", size = 28376, upload-time = "2019-04-18T20:04:53.631Z" },
+]
+
+[[package]]
+name = "pamqp"
+version = "4.0.1"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.11'",
+]
+sdist = { url = "https://files.pythonhosted.org/packages/31/4c/33a0ddaaac7bc42f9a542dbaaee8b580ceca3f89bf5da7c498d1fa97ff9a/pamqp-4.0.1.tar.gz", hash = "sha256:9dd13b828e346622793981f14a5df817fce5de998c746209d6c0154eb8403970", size = 137192, upload-time = "2026-07-06T16:37:51.732Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/71/14/1dfc08b743ba995a38dee0ea09beb46a05c7fe8ac53d729095905f7bf11d/pamqp-4.0.1-py3-none-any.whl", hash = "sha256:a547f45128b06e42ce8d7a739b0cfcc40f2c724770622eaaff4a3f587b1cf7d0", size = 32773, upload-time = "2026-07-06T16:37:50.623Z" },
+]
+
+[[package]]
+name = "pika"
+version = "1.4.4"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/7f/26/54e0b98a7f60b474cb0a6c05ecf048d4bc8c866e10ab1c82bc83865e7421/pika-1.4.4.tar.gz", hash = "sha256:8cfc8b33a5cb16e733bd60cffca9732c0d1d761ecd80a89f34ed7df2cd38d6d6", size = 154713, upload-time = "2026-08-06T21:33:39.836Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7c/f3/921170b78779ac3f8b405cb28fce88acca1562ac114072cbf0a115e19bb9/pika-1.4.4-py3-none-any.whl", hash = "sha256:48de960c97a93b55db06b8be4c53eb977c9c8a2754c57cdae9097abcbd70ce04", size = 165275, upload-time = "2026-08-06T21:33:38.449Z" },
+]
+
+[[package]]
+name = "python"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "pika" },
+    { name = "rabbitpy", version = "2.0.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "rabbitpy", version = "3.0.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "pika", specifier = ">=1.4.4" },
+    { name = "rabbitpy", specifier = ">=2.0.1" },
+]
+
+[[package]]
+name = "rabbitpy"
+version = "2.0.1"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version < '3.11'",
+]
+dependencies = [
+    { name = "pamqp", version = "2.3.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/e1/94/446dba465330f85b1460ac707d35d722a99cc6dde5e480cac47594dc7d27/rabbitpy-2.0.1.tar.gz", hash = "sha256:c6a6d0e8e51d0859fbb9bb78c8eeddd7b1ec79957db633673a8741d0cedf4830", size = 42506, upload-time = "2019-08-06T08:24:41.588Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/62/03/d59cb23b7d00727b948f0770099ab8762fe966216a3b8086786b51079baa/rabbitpy-2.0.1-py2.py3-none-any.whl", hash = "sha256:58be8ccef6d64010d98c77b0966be148aafb48b867359e885d9cd671361fe5ba", size = 50440, upload-time = "2019-08-06T08:24:39.788Z" },
+]
+
+[[package]]
+name = "rabbitpy"
+version = "3.0.2"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.11'",
+]
+dependencies = [
+    { name = "pamqp", version = "4.0.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b6/46/4d36cfd2f15f9f919ea1ccccd59e900617371f41fb97ecdcd147d98d5619/rabbitpy-3.0.2.tar.gz", hash = "sha256:9322a1e82b4d3d1afc21a617ce0b1e86b921174328735e7d54abc9525805ae5c", size = 136742, upload-time = "2026-06-12T16:02:00.537Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b4/a9/bc224d490998824041a408a998c24c63aacebfdee0b9a681c84ae94f7c0b/rabbitpy-3.0.2-py3-none-any.whl", hash = "sha256:cb1cf8bf65881e256a4bcaf586581c53a4f1e8dfbf3a04f572b95112083ff23d", size = 51778, upload-time = "2026-06-12T16:01:59.185Z" },
+]
