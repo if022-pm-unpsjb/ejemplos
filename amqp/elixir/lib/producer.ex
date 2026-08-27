@@ -9,6 +9,20 @@ defmodule Producer do
   # nombre del exchange
   @exchange_name "test_exchange"
 
+  def send_message(queue_name, message) do
+    # Obtener el canal AMQP (definido en la configuración)
+    {:ok, channel} = AMQP.Application.get_channel(:channel)
+
+    # Declara la cola de mensajes. Si no existe, se crea.
+    Queue.declare(channel, queue_name, durable: true)
+
+    # Publicar el mensaje
+    Basic.publish(channel, "", queue_name, message)
+
+    IO.puts("Mensaje enviado: #{message}")
+  end
+
+
   def send_message(message) do
     # Obtener el canal AMQP (definido en la configuración)
     {:ok, channel} = AMQP.Application.get_channel(:channel)
@@ -26,6 +40,16 @@ defmodule Producer do
     Basic.publish(channel, @exchange_name, "", message)
 
     IO.puts("Mensaje enviado: #{message}")
+  end
+
+  def publish_message(message) do
+    {:ok, channel} = AMQP.Application.get_channel(:channel)
+
+    AMQP.Exchange.declare(channel, "pubsub", :fanout)
+
+    AMQP.Basic.publish(channel, "pubsub", "", message)
+
+    IO.puts("Mensaje publicado: #{message}")
   end
 
 end
