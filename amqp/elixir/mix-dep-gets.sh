@@ -1,4 +1,4 @@
-# In order to access and save notebooks directly to your machine
+# In order to access and save files directly to your machine
 # you can mount a local directory into the container.
 # Make sure to specify the user with "-u $(id -u):$(id -g)"
 # so that the created files have proper permissions
