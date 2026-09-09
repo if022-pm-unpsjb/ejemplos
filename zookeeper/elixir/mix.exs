@@ -1,9 +1,9 @@
-defmodule EjemplosElixir.MixProject do
+defmodule EjemplosZookeeper.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :ejemplos_elixir,
+      app: :ejemplos_zookeeper,
       version: "0.1.0",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
@@ -22,8 +22,6 @@ defmodule EjemplosElixir.MixProject do
   defp deps do
     [
       {:erlzk, "~> 0.6.2"}
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
     ]
   end
 end
